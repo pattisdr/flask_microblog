@@ -4,8 +4,11 @@ from flask.ext.sqlalchemy import SQLAlchemy
 from flask.ext.login import LoginManager
 from flask.ext.openid import OpenID
 from config import basedir
+from flask.ext.babel import Babel
+
 
 app = Flask(__name__)
+babel = Babel(app)
 app.config.from_object('config')
 db = SQLAlchemy(app)
 lm = LoginManager()

@@ -6,7 +6,8 @@ from app import app, db, lm, oid
 from .forms import LoginForm, EditForm, PostForm, SearchForm
 from .models import User, Post
 from config import POSTS_PER_PAGE, MAX_SEARCH_RESULTS
-
+from app import babel
+from config import LANGUAGES
 
 @lm.user_loader
 def load_user(id):
@@ -181,3 +182,7 @@ def unfollow(nickname):
     db.session.commit()
     flash('You have stopped following ' + nickname + '.')
     return redirect(url_for('user', nickname=nickname))
+
+@babel.localeselector
+def get_locale():
+    return request.accept_languages.best_match(LANGUAGES.keys())
